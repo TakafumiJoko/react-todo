@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 
 const Todo = () => {
 
-  const [todos, setTodos] = useState([]);
-  const [todoTitle, setTodoTitle] = useState('');
-  const [todoId, setTodoId] = useState(todos.length + 1);
-  const [isEditable, setIsEditable] = useState(false);
-  const [editId, setEditId] = useState();
-  const [newTitle, setNewTitle] = useState('');
-  const [filter, setFilter] = useState('all');
-  const [filteredTodos, setFilteredTodos] = useState([]);
+  const [todos, setTodos] = useState([])
+  const [todoTitle, setTodoTitle] = useState('')
+  const [todoId, setTodoId] = useState(todos.length + 1)
+  const [isEditable, setIsEditable] = useState(false)
+  const [editId, setEditId] = useState()
+  const [newTitle, setNewTitle] = useState('')
+  const [filter, setFilter] = useState('all')
+  const [filteredTodos, setFilteredTodos] = useState([])
 
   useEffect(() => {
     setFilter(filter)
@@ -39,6 +39,10 @@ const Todo = () => {
   const handleAddTodo = () => {
     setTodos([...todos, { id: todoId, title: todoTitle, status: 'notStarted' }])
     setTodoId(todoId + 1)
+    resetFormInput()
+  }
+
+  const resetFormInput = () => {
     setTodoTitle('')
   }
   
@@ -59,8 +63,12 @@ const Todo = () => {
   const handleEditTodo = () => {
     const newArray = todos.map((todo) => todo.id === editId ? {...todo, title: newTitle} : todo)
     setTodos(newArray)
-    setEditId()
     setNewTitle('')
+    handleCloseEditForm()
+  }
+
+  const handleCloseEditForm = () => {
+    setEditId()
     setIsEditable(false)
   }
 
