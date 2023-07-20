@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import TODO from './components/TODO';
+import Todo from './components/Todo';
 
 const App = () => {
   return (
     <div className="App">
-      <TODO />
+      <Todo />
     </div>
   );
 }
