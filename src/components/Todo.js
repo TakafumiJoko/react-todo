@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import React, { useState, useEffect } from 'react'; 
+import TodoItem from './TodoItem';
 
 const Todo = () => {
 
@@ -48,17 +49,6 @@ const Todo = () => {
     setTodoTitle('')
     setTodoContent('')
   }
-  
-  const handleDeleteTodo = (targetTodo) => {
-    setTodos(todos.filter((todo) => todo.id !== targetTodo.id))
-  }
-
-  const handleOpenEditForm= ({ id, title, content }) => {
-    setIsEditable(true)
-    setEditId(id)
-    setNewTitle(title)
-    setNewContent(content)
-  }
 
   const handleEditTitleFormChange = (e) => {
     setNewTitle(e.target.value)
@@ -77,13 +67,6 @@ const Todo = () => {
     setIsEditable(false)
   }
 
-  const handleStatusChange = (targetTodo, e) => {
-    const newArray = todos.map((todo) => {
-      return todo.id === targetTodo.id ? {...todo, status: e.target.value} : todo
-    })
-    setTodos(newArray)
-  }
-
   const handleFilterChange = (e) => {
     setFilter(e.target.value)
     const newArray = todos.filter((todo) => todo.status === e.target.value)
@@ -96,22 +79,6 @@ const Todo = () => {
 
   const handleEditContentFormChange = (e) => {
     setNewContent(e.target.value)
-  }
-
-  const todoBackgroundColor = (todo) => {
-    switch (todo.status) {
-      case 'notStarted': 
-        return 'red'
-        break
-      case 'inProgress':
-        return 'yellow'
-        break
-      case 'done':
-        return 'blue'
-        break
-      default:
-        return null
-    } 
   }
 
   return (
@@ -156,29 +123,15 @@ const Todo = () => {
       <ul>
         { 
           filteredTodos.map((todo) => (
-            <li key={todo.id} style={{backgroundColor: todoBackgroundColor(todo)}}>
-              <span>{todo.title}</span>
-              <span>{todo.content}</span>
-              <select
-                name='ステータス'
-                value={todo.status}
-                onChange={(e) => handleStatusChange(todo, e)}
-                >
-                <option value='notStarted'>
-                    未着手
-                </option>
-                <option value='inProgress'>
-                  作業中
-                </option>
-                <option value='done'>
-                  完了
-                </option>
-              </select>
-              <span>{todo.created}</span>
-              <span>{todo.updated}</span>
-              <button onClick={() => handleOpenEditForm(todo)}>編集</button>
-              <button onClick={() => handleDeleteTodo(todo)}>削除</button>
-            </li>
+            <TodoItem
+              todos={todos} 
+              todo={todo}
+              setTodos={setTodos} 
+              setIsEditable={setIsEditable} 
+              setEditId={setEditId} 
+              setNewTitle={setNewTitle} 
+              setNewContent={setNewContent} 
+            />
           ))
         }
       </ul>
@@ -187,3 +140,4 @@ const Todo = () => {
 }
 
 export default Todo
+
