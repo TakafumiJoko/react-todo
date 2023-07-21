@@ -39,7 +39,7 @@ const Todo = () => {
   }
 
   const handleAddTodo = () => {
-    setTodos([...todos, { id: todoId, title: todoTitle, status: 'notStarted', content: todoContent }])
+    setTodos([...todos, { id: todoId, title: todoTitle, status: 'notStarted', content: todoContent, created: new Date().toLocaleDateString() }])
     setTodoId(todoId + 1)
     resetFormInput()
   }
@@ -158,6 +158,7 @@ const Todo = () => {
                   完了
                 </option>
               </select>
+              <span>{todo.created}</span>
               <button onClick={() => handleOpenEditForm(todo)}>編集</button>
               <button onClick={() => handleDeleteTodo(todo)}>削除</button>
             </li>
