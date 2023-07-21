@@ -39,7 +39,7 @@ const Todo = () => {
   }
 
   const handleAddTodo = () => {
-    setTodos([...todos, { id: todoId, title: todoTitle, status: 'notStarted', content: todoContent, created: new Date().toLocaleDateString() }])
+    setTodos([...todos, { id: todoId, title: todoTitle, status: 'notStarted', content: todoContent, created: new Date().toLocaleDateString(), updated: new Date().toLocaleDateString() }])
     setTodoId(todoId + 1)
     resetFormInput()
   }
@@ -65,7 +65,7 @@ const Todo = () => {
   }
 
   const handleEditTodo = () => {
-    const newArray = todos.map((todo) => todo.id === editId ? {...todo, title: newTitle, content: newContent} : todo)
+    const newArray = todos.map((todo) => todo.id === editId ? {...todo, title: newTitle, content: newContent, updated: new Date().toLocaleDateString()} : todo)
     setTodos(newArray)
     setNewTitle('')
     setNewContent('')
@@ -159,6 +159,7 @@ const Todo = () => {
                 </option>
               </select>
               <span>{todo.created}</span>
+              <span>{todo.updated}</span>
               <button onClick={() => handleOpenEditForm(todo)}>編集</button>
               <button onClick={() => handleDeleteTodo(todo)}>削除</button>
             </li>
