@@ -112,7 +112,7 @@ const Todo = () => {
               />
               <textarea name="内容" value={newContent} onChange={handleEditContentFormChange} cols="30" rows="10"></textarea>
               <button onClick={handleEditTodo}>編集を保存</button>
-              <button></button>
+              <button onClick={handleCloseEditForm}>キャンセル</button>
             </>
           ) : (
             <>
