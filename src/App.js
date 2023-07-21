@@ -1,6 +1,6 @@
-import logo from './logo.svg';
-import './App.css';
-import Todo from './components/Todo';
+import logo from './logo.svg'
+import './App.css'
+import Todo from './components/Todo'
 
 const App = () => {
   return (
@@ -10,4 +10,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default App

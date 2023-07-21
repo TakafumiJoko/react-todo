@@ -1,6 +1,5 @@
-import ReactDOM from 'react-dom';
-import React, { useState, useEffect } from 'react'; 
-import TodoItem from './TodoItem';
+import React, { useState, useEffect } from 'react'
+import TodoItem from './TodoItem'
 
 const Todo = () => {
 
