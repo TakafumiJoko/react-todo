@@ -11,6 +11,8 @@ const Todo = () => {
   const [newTitle, setNewTitle] = useState('')
   const [filter, setFilter] = useState('all')
   const [filteredTodos, setFilteredTodos] = useState([])
+  const [todoContent, setTodoContent] = useState('')
+  const [newContent, setNewContent] = useState('')
 
   useEffect(() => {
     setFilter(filter)
@@ -32,38 +34,41 @@ const Todo = () => {
     }
   }, [filter, todos])
 
-  const handleAddFormChanges = (e) => {
+  const handleAddTitleFormChange = (e) => {
     setTodoTitle(e.target.value)
   }
 
   const handleAddTodo = () => {
-    setTodos([...todos, { id: todoId, title: todoTitle, status: 'notStarted' }])
+    setTodos([...todos, { id: todoId, title: todoTitle, status: 'notStarted', content: todoContent }])
     setTodoId(todoId + 1)
     resetFormInput()
   }
 
   const resetFormInput = () => {
     setTodoTitle('')
+    setTodoContent('')
   }
   
   const handleDeleteTodo = (targetTodo) => {
     setTodos(todos.filter((todo) => todo.id !== targetTodo.id))
   }
 
-  const handleOpenEditForm= ({ id, title }) => {
+  const handleOpenEditForm= ({ id, title, content }) => {
     setIsEditable(true)
     setEditId(id)
     setNewTitle(title)
+    setNewContent(content)
   }
 
-  const handleEditFormChange = (e) => {
+  const handleEditTitleFormChange = (e) => {
     setNewTitle(e.target.value)
   }
 
   const handleEditTodo = () => {
-    const newArray = todos.map((todo) => todo.id === editId ? {...todo, title: newTitle} : todo)
+    const newArray = todos.map((todo) => todo.id === editId ? {...todo, title: newTitle, content: newContent} : todo)
     setTodos(newArray)
     setNewTitle('')
+    setNewContent('')
     handleCloseEditForm()
   }
 
@@ -85,6 +90,14 @@ const Todo = () => {
     setFilteredTodos(newArray)
   } 
 
+  const handleAddContentFormChange = (e) => {
+    setTodoContent(e.target.value)
+  }
+
+  const handleEditContentFormChange = (e) => {
+    setNewContent(e.target.value)
+  }
+
   return (
     <>
       <div>
@@ -95,9 +108,11 @@ const Todo = () => {
                 type='text'
                 label='タイトル'
                 value={newTitle}
-                onChange={handleEditFormChange}
+                onChange={handleEditTitleFormChange}
               />
+              <textarea name="内容" value={newContent} onChange={handleEditContentFormChange} cols="30" rows="10"></textarea>
               <button onClick={handleEditTodo}>編集を保存</button>
+              <button></button>
             </>
           ) : (
             <>
@@ -105,8 +120,9 @@ const Todo = () => {
                 type='text'
                 label='タイトル'
                 value={todoTitle}
-                onChange={handleAddFormChanges}
+                onChange={handleAddTitleFormChange}
               />
+              <textarea name="内容" value={todoContent} onChange={handleAddContentFormChange} cols="30" rows="10"></textarea>
               <button onClick={handleAddTodo}>作成</button>
               <select
                name='ステータス'
@@ -126,6 +142,7 @@ const Todo = () => {
           filteredTodos.map((todo) => (
             <li key={todo.id}>
               <span>{todo.title}</span>
+              <span>{todo.content}</span>
               <select
                 name='ステータス'
                 value={todo.status}
