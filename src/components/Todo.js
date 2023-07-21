@@ -98,6 +98,22 @@ const Todo = () => {
     setNewContent(e.target.value)
   }
 
+  const todoBackgroundColor = (todo) => {
+    switch (todo.status) {
+      case 'notStarted': 
+        return 'red'
+        break
+      case 'inProgress':
+        return 'yellow'
+        break
+      case 'done':
+        return 'blue'
+        break
+      default:
+        return null
+    } 
+  }
+
   return (
     <>
       <div>
@@ -140,7 +156,7 @@ const Todo = () => {
       <ul>
         { 
           filteredTodos.map((todo) => (
-            <li key={todo.id}>
+            <li key={todo.id} style={{backgroundColor: todoBackgroundColor(todo)}}>
               <span>{todo.title}</span>
               <span>{todo.content}</span>
               <select
