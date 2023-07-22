@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react'
-import * as Types from '../types';
+import * as Types from '../types'
 
 const TodoItem = (props: Types.TodoItemProps) => {
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from 'react'
 import TodoItem from './TodoItem'
-import * as Types from '../types';
+import * as Types from '../types'
 
 const Todo = () => {
 
