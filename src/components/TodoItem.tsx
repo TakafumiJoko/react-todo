@@ -36,7 +36,7 @@ const TodoItem = (props: Types.TodoItemProps) => {
   }
 
   return (
-    <li key={props.todo.id} style={{backgroundColor: todoBackgroundColor(props.todo)}}>
+    <li style={{backgroundColor: todoBackgroundColor(props.todo)}}>
       <span>{props.todo.title}</span>
       <span>{props.todo.content}</span>
       <select

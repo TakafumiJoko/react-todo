@@ -110,7 +110,7 @@ const Todo = () => {
                 onChange={handleEditTitleFormChange}
               />
               <textarea name="内容" value={newContent} onChange={handleEditContentFormChange} cols={30} rows={10}></textarea>
-              <input type="date" value={newDeadline} onChange={handleEditDeadlineFormChange} pattern='\d{4}/\d{2}/\d{4}'/>
+              <input type="date" value={newDeadline} onChange={handleEditDeadlineFormChange}/>
               <button onClick={handleEditTodo}>編集を保存</button>
               <button onClick={handleCloseEditForm}>キャンセル</button>
             </>
@@ -143,6 +143,7 @@ const Todo = () => {
             <TodoItem
               todos={todos} 
               todo={todo}
+              key={todo.id} 
               setTodos={setTodos} 
               setIsEditable={setIsEditable} 
               setEditId={setEditId} 
