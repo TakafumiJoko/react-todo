@@ -5,6 +5,7 @@ export type Todo = {
   content: string;
   created: string;
   updated: string;
+  deadline: string;
 }  
 
 export type TodoItemProps = {
@@ -15,4 +16,5 @@ export type TodoItemProps = {
   setEditId: (editId: number|null) => void;
   setNewTitle: (newTitle: string) => void;
   setNewContent: (newContent: string) => void;
+  setNewDeadline: (newDeadline: string) => void;
 }  

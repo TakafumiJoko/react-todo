@@ -7,11 +7,12 @@ const TodoItem = (props: Types.TodoItemProps) => {
     props.setTodos(props.todos.filter((todo:  Types.Todo) => todo.id !== targetTodo.id))
   }
 
-  const handleOpenEditForm = ({ id, title, content }: { id: number, title: string, content: string}): void => {
+  const handleOpenEditForm = ({ id, title, content, deadline }: { id: number, title: string, content: string, deadline: string }): void => {
     props.setIsEditable(true)
     props.setEditId(id)
     props.setNewTitle(title)
     props.setNewContent(content)
+    props.setNewDeadline(deadline)
   }
 
   const handleStatusChange = (targetTodo: Types.Todo, e: ChangeEvent<HTMLSelectElement>): void => {
@@ -55,6 +56,7 @@ const TodoItem = (props: Types.TodoItemProps) => {
       </select>
       <span>{props.todo.created}</span>
       <span>{props.todo.updated}</span>
+      <span>{props.todo.deadline}</span>
       <button onClick={() => handleOpenEditForm(props.todo)}>編集</button>
       <button onClick={() => handleDeleteTodo(props.todo)}>削除</button>
     </li>

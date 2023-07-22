@@ -14,6 +14,8 @@ const Todo = () => {
   const [filteredTodos, setFilteredTodos] = useState<Types.Todo[]>([])
   const [todoContent, setTodoContent] = useState<string>('')
   const [newContent, setNewContent] = useState<string>('')
+  const [todoDeadline, setTodoDeadline] = useState<string>('')
+  const [newDeadline, setNewDeadline] = useState<string>('')
 
   useEffect(() => {
     setFilter(filter)
@@ -40,7 +42,7 @@ const Todo = () => {
   }
 
   const handleAddTodo = (): void => {
-    setTodos([...todos, { id: todoId, title: todoTitle, status: 'notStarted', content: todoContent, created: new Date().toLocaleDateString(), updated: new Date().toLocaleDateString() }])
+    setTodos([...todos, { id: todoId, title: todoTitle, status: 'notStarted', content: todoContent, created: today(), updated: today(), deadline: todoDeadline }])
     setTodoId(todoId + 1)
     resetFormInput()
   }
@@ -55,10 +57,11 @@ const Todo = () => {
   }
 
   const handleEditTodo = (): void => {
-    const newArray = todos.map((todo) => todo.id === editId ? {...todo, title: newTitle, content: newContent, updated: new Date().toLocaleDateString()} : todo)
+    const newArray = todos.map((todo) => todo.id === editId ? {...todo, title: newTitle, content: newContent, updated: today(), deadline: newDeadline} : todo)
     setTodos(newArray)
     setNewTitle('')
     setNewContent('')
+    setNewDeadline('')
     handleCloseEditForm()
   }
 
@@ -81,6 +84,20 @@ const Todo = () => {
     setNewContent(e.target.value)
   }
 
+  const handleAddDeadlineFormChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setTodoDeadline(e.target.value)
+  }
+
+  const handleEditDeadlineFormChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setNewDeadline(e.target.value)
+  }
+
+  const today = (): string => {
+    const date = new Date()
+    const today = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()
+    return today
+  }
+
   return (
     <>
       <div>
@@ -93,6 +110,7 @@ const Todo = () => {
                 onChange={handleEditTitleFormChange}
               />
               <textarea name="内容" value={newContent} onChange={handleEditContentFormChange} cols={30} rows={10}></textarea>
+              <input type="date" value={newDeadline} onChange={handleEditDeadlineFormChange} pattern='\d{4}/\d{2}/\d{4}'/>
               <button onClick={handleEditTodo}>編集を保存</button>
               <button onClick={handleCloseEditForm}>キャンセル</button>
             </>
@@ -104,6 +122,7 @@ const Todo = () => {
                 onChange={handleAddTitleFormChange}
               />
               <textarea name="内容" value={todoContent} onChange={handleAddContentFormChange} cols={30} rows={10}></textarea>
+              <input type="date" value={todoDeadline} onChange={handleAddDeadlineFormChange}/>
               <button onClick={handleAddTodo}>作成</button>
               <select
                name='ステータス'
@@ -128,7 +147,8 @@ const Todo = () => {
               setIsEditable={setIsEditable} 
               setEditId={setEditId} 
               setNewTitle={setNewTitle} 
-              setNewContent={setNewContent} 
+              setNewContent={setNewContent}
+              setNewDeadline={setNewDeadline}
             />
           ))
         }
