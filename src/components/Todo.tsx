@@ -1,6 +1,8 @@
-import React, { useState, useEffect, ChangeEvent } from 'react'
+import React, { useState, useEffect, ChangeEvent, MouseEvent } from 'react'
+import ReactDOM, { flushSync } from 'react-dom'
 import TodoItem from './TodoItem'
 import * as Types from '../types'
+import { render } from '@testing-library/react'
 
 const Todo = () => {
 
@@ -98,6 +100,36 @@ const Todo = () => {
     return today
   }
 
+  const handleSortByAscend = (e: MouseEvent<HTMLButtonElement>): void => {
+    const { target } = e
+    if(target instanceof HTMLButtonElement) {
+      if(target.value === 'id' || target.value === 'deadline') {
+        const key = target.value
+        const newArray = filteredTodos.slice().sort((a, b) => {
+          if(a[key] > b[key]) return 1
+          if(a[key] < b[key]) return -1
+          return 0
+        })
+        setFilteredTodos(newArray)
+      } 
+    }
+  }  
+
+  const handleSortByDescend = (e: MouseEvent<HTMLButtonElement>): void => {
+    const { target } = e
+    if(target instanceof HTMLButtonElement) {
+      if(target.value === 'id' || target.value === 'deadline') {
+        const key = target.value
+        const newArray = filteredTodos.slice().sort((a, b) => {
+          if(a[key] > b[key]) return -1
+          if(a[key] < b[key]) return 1
+          return 0
+        })
+        setFilteredTodos(newArray)
+      } 
+    }
+  }
+
   return (
     <>
       <div>
@@ -133,6 +165,12 @@ const Todo = () => {
                 <option value='inProgress'>作業中</option>
                 <option value='done'>完了</option>
               </select>
+              <span>ID:</span>
+              <button value='id' onClick={handleSortByAscend}>昇順</button>
+              <button value='id' onClick={handleSortByDescend}>降順</button>
+              <span>期限:</span>
+              <button value='deadline' onClick={handleSortByAscend}>昇順</button>
+              <button value='deadline' onClick={handleSortByDescend}>降順</button>
             </>
           )
         }
@@ -159,4 +197,3 @@ const Todo = () => {
 }
 
 export default Todo
-
