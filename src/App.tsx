@@ -3,9 +3,7 @@ import Todos from './components/pages/todos/Todos';
 
 const App = () => {
   return (
-    <>
-      <Todos />
-    </>
+    <Todos />
   );
 }
 

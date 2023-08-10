@@ -1,9 +1,9 @@
-import Input from '../../../base/input/Input'
-import TextArea from '../../../base/text-area/TextArea'
 import TodosButton from '../../../base/button/TodosButton'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { EditFormProps } from '../../../../types'
 import { today } from '../../../../functions/date'
+import { FormControl, TextField } from '@mui/material'
+import { Textarea, Input, Button } from '@mui/joy'
 
 const EditForm = ({editId, newTitle, newContent, newDeadline, todos, setTodos, setIsEditable, setEditId, setNewTitle, setNewContent, setNewDeadline}: EditFormProps) => {
   
@@ -35,15 +35,59 @@ const EditForm = ({editId, newTitle, newContent, newDeadline, todos, setTodos, s
 
   return (
     <>
-      <Input
-        type='text'
-        value={newTitle}
-        onChange={handleEditTitleFormChange}
-      />
-      <TextArea name="内容" value={newContent} onChange={handleEditContentFormChange} cols={30} rows={10}></TextArea>
-      <Input type="date" value={newDeadline} onChange={handleEditDeadlineFormChange}/>
-      <TodosButton onClick={handleEditTodo} title='編集を保存'></TodosButton>
-      <TodosButton onClick={handleCloseEditForm} title='キャンセル'></TodosButton>
+      <div>
+        <TextField
+          style={{ 'margin': '8px' }}
+          label="タイトル"
+          InputLabelProps={{ shrink: true }}
+          value={newTitle}
+          onChange={handleEditTitleFormChange}
+          margin="normal" 
+          fullWidth={true} />
+      </div>
+      <div>
+        <TextField
+          style={{ 'margin': '8px' }}
+          multiline={true}
+          label="内容"
+          InputLabelProps={{ shrink: true }}
+          name="内容" 
+          value={newContent} 
+          onChange={handleEditContentFormChange}
+          margin="normal" 
+          fullWidth={true} />
+      </div>
+      <div>
+        <TextField
+          style={{ 'margin': '8px' }}
+          label="期限"
+          InputLabelProps={{ shrink: true }}
+          type="date" 
+          value={newDeadline} 
+          onChange={handleEditDeadlineFormChange}
+          margin="normal" 
+          fullWidth={true} />
+      </div>
+      <div>
+        <FormControl>
+          <Button 
+            style={{ 'margin': '8px' }}
+            onClick={handleEditTodo}
+            color="neutral"
+            variant="outlined"
+          >編集を保存
+          </Button>
+        </FormControl>
+        <FormControl>
+          <Button 
+            style={{ 'margin': '8px' }}
+            onClick={handleCloseEditForm}
+            color="neutral"
+            variant="outlined"
+          >キャンセル
+          </Button>
+        </FormControl>
+      </div>
     </>
   )
 }
