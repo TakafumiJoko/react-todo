@@ -3,7 +3,7 @@ import { ChangeEvent, MouseEvent, ReactNode } from 'react'
 type Todo = {
   id: number;
   title: string;
-  status: string;
+  status: any;
   content: string;
   created: string;
   updated: string;
@@ -101,4 +101,10 @@ type SortProps = {
   setFilteredTodos: (todos: Todo[]) => void; 
 }
 
-export type { Todo, TodoProps, InputProps, TextAreaProps, TodosButtonProps, TodoButtonProps, SelectProps, OptionProps, SpanProps, LiProps, EditFormProps, NewFormProps, FilterProps, SortProps } 
+type TextFieldsProps = {
+  handleTitleFormChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleContentFormChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleDeadlineFormChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export type { Todo, TodoProps, InputProps, TextAreaProps, TodosButtonProps, TodoButtonProps, SelectProps, OptionProps, SpanProps, LiProps, EditFormProps, NewFormProps, FilterProps, SortProps, TextFieldsProps } 

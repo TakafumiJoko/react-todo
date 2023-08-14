@@ -1,14 +1,23 @@
 import TodosButton from '../../../base/button/TodosButton'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState, useContext } from 'react'
 import { EditFormProps } from '../../../../types'
 import { today } from '../../../../functions/date'
 import { FormControl, TextField } from '@mui/material'
 import { Textarea, Input, Button } from '@mui/joy'
+import TextFields from '../../../common/form/TextFields'
 
 const EditForm = ({editId, newTitle, newContent, newDeadline, todos, setTodos, setIsEditable, setEditId, setNewTitle, setNewContent, setNewDeadline}: EditFormProps) => {
   
   const handleEditTitleFormChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setNewTitle(e.target.value)
+  }
+
+  const handleEditContentFormChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setNewContent(e.target.value)
+  }
+
+  const handleEditDeadlineFormChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setNewDeadline(e.target.value)
   }
 
   const handleEditTodo = (): void => {
@@ -25,49 +34,13 @@ const EditForm = ({editId, newTitle, newContent, newDeadline, todos, setTodos, s
     setIsEditable(false)
   }
 
-  const handleEditContentFormChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
-    setNewContent(e.target.value)
-  }
-
-  const handleEditDeadlineFormChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setNewDeadline(e.target.value)
-  }
-
   return (
     <>
-      <div>
-        <TextField
-          style={{ 'margin': '8px' }}
-          label="タイトル"
-          InputLabelProps={{ shrink: true }}
-          value={newTitle}
-          onChange={handleEditTitleFormChange}
-          margin="normal" 
-          fullWidth={true} />
-      </div>
-      <div>
-        <TextField
-          style={{ 'margin': '8px' }}
-          multiline={true}
-          label="内容"
-          InputLabelProps={{ shrink: true }}
-          name="内容" 
-          value={newContent} 
-          onChange={handleEditContentFormChange}
-          margin="normal" 
-          fullWidth={true} />
-      </div>
-      <div>
-        <TextField
-          style={{ 'margin': '8px' }}
-          label="期限"
-          InputLabelProps={{ shrink: true }}
-          type="date" 
-          value={newDeadline} 
-          onChange={handleEditDeadlineFormChange}
-          margin="normal" 
-          fullWidth={true} />
-      </div>
+      <TextFields 
+        handleTitleFormChange={handleEditTitleFormChange}
+        handleContentFormChange={handleEditContentFormChange}
+        handleDeadlineFormChange={handleEditDeadlineFormChange}
+      />
       <div>
         <FormControl>
           <Button 

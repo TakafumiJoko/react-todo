@@ -1,10 +1,11 @@
-import Input from '../../../base/input/Input'
-import TextArea from '../../../base/text-area/TextArea'
 import TodosButton from '../../../base/button/TodosButton'
 import { useState, ChangeEvent } from 'react'
 import type { NewFormProps } from '../../../../types'
 import { backgroundColor } from '../../../../functions/todo'
 import { today } from '../../../../functions/date'
+import { TextField, Button } from '@mui/material'
+import { TextFieldsContext } from '../../../../Context'
+import TextFields from '../../../common/form/TextFields'
 
 const NewForm = ({todos, setTodos}: NewFormProps) => {
 
@@ -32,21 +33,35 @@ const NewForm = ({todos, setTodos}: NewFormProps) => {
     setTodoDeadline(e.target.value)
   }
 
-  const handleAddContentFormChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
+  const handleAddContentFormChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setTodoContent(e.target.value)
   }
 
   return (
     <>
-      <Input 
+      <TextFields
+
+      />
+      <Input
+        style={{ 'padding': '0 8px' }} 
         type='text'
         value={todoTitle}
-        onChange={handleAddTitleFormChange}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleAddTitleFormChange(e)}
       />
-      <TextArea name="内容" value={todoContent} onChange={handleAddContentFormChange} cols={30} rows={10}></TextArea>
-      <Input type="date" value={todoDeadline} onChange={handleAddDeadlineFormChange}/>
-      <TodosButton value='' onClick={handleAddTodo} title='作成'></TodosButton>
-    </>
+      <Input
+        style={{ 'padding': '0 8px' }}  
+        multiline={true}
+        type='text' 
+        value={todoContent} 
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleAddContentFormChange(e)}
+      />
+      <Input 
+        type="date" 
+        value={todoDeadline} 
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleAddDeadlineFormChange(e)}
+      />
+      <Button onClick={() => handleAddTodo()}>作成</Button>
+    </>    
   )
 }
 

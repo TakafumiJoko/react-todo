@@ -1,10 +1,6 @@
-import { ChangeEvent } from 'react'
 import * as Types from '../../../../types'
-import Span from '../../../base/span/Span'
-import Select from '../../../base/select/Select'
-import TodoButton from '../../../base/button/TodoButton'
-import Li from '../../../base/li/Li'
 import { backgroundColor } from '../../../../functions/todo'
+import { Select, MenuItem, SelectChangeEvent, Button } from '@mui/material'
 
 const Todo = ({todos, todo, setTodos, setIsEditable, setEditId, setNewTitle, setNewContent, setNewDeadline}: Types.TodoProps) => {
 
@@ -20,36 +16,77 @@ const Todo = ({todos, todo, setTodos, setIsEditable, setEditId, setNewTitle, set
     setNewDeadline(deadline)
   }
 
-  const handleStatusChange = (e: ChangeEvent<HTMLSelectElement>, targetTodo: Types.Todo): void => {
+  const handleStatusChange = (e: SelectChangeEvent<any>, targetTodo: Types.Todo): void => {
     const newArray = todos.map((todo: Types.Todo) => {
       return todo.id === targetTodo.id ? {...todo, status: e.target.value, backgroundColor: backgroundColor(e.target.value)} : todo
     })
     setTodos((newArray))
   }
 
-  const statusOptions: Types.OptionProps[] = [
-    { value: 'notStarted', title: '未着手' },
-    { value: 'inProgress', title: '作業中' },
-    { value: 'done', title: '完了' },
-  ]
-
   return (
-    <Li todo={todo}>
-      <Span title={todo.title}></Span>
-      <Span title={todo.content}></Span>
-      <Select
-        name='ステータス'
-        value={todo.status}
-        onChange={(e) => handleStatusChange(e, todo)}
+    <tr>
+      <td>
+        {todo.title}
+      </td>
+      <td>
+        {todo.content}
+      </td>
+      <td>
+        <Select
+          sx={{
+            bgcolor: 'background.paper',
+            boxShadow: 1,
+            borderRadius: 2,
+            m: 2,
+            p: 0,
+          }}
+          defaultValue="未着手"
+          value={todo.status}
+          onChange={(e: SelectChangeEvent<any>) => handleStatusChange(e, todo)}
         >
-        {statusOptions}
-      </Select>
-      <Span title={todo.created}></Span>
-      <Span title={todo.updated}></Span>
-      <Span title={todo.deadline}></Span>
-      <TodoButton todo={todo} onClick={handleOpenEditForm} title='編集'></TodoButton>
-      <TodoButton todo={todo} onClick={handleDeleteTodo} title='削除'></TodoButton>
-    </Li>
+          <MenuItem value='notStarted'>未着手</MenuItem>
+          <MenuItem value='inProgress'>作業中</MenuItem>
+          <MenuItem value='done'>完了</MenuItem>   
+        </Select>
+      </td>
+      <td>
+        {todo.created}
+      </td>
+      <td>
+        {todo.updated}
+      </td>
+      <td>
+        {todo.deadline}
+      </td>
+      <td>
+        <Button 
+          sx={{
+            bgcolor: 'background.paper',
+            boxShadow: 1,
+            borderRadius: 2,
+            m: 2,
+            p: 1,
+          }}
+          onClick={() => handleOpenEditForm(todo)} 
+        >
+          編集
+        </Button>
+      </td>
+      <td>
+        <Button
+          sx={{
+            bgcolor: 'background.paper',
+            boxShadow: 1,
+            borderRadius: 2,
+            m: 2,
+            p: 1,
+          }}
+          onClick={() => handleDeleteTodo(todo)} 
+        >
+          削除
+        </Button>
+      </td>
+    </tr>
   )
 }
 
